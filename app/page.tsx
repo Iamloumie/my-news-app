@@ -4,6 +4,10 @@
  * It fetches data and handle search/category as inputted by user by filtering the server
  */
 
+// Force the page to be dynamic (not statically generated)
+export const dynamic = 'force-dynamic';
+
+
 import { ClientFeed } from "@/components/ClientFeed";
 import { getTopHeadlines, searchEverything } from "@/lib/data";
 import { Article } from "@/types";
