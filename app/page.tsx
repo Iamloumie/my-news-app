@@ -11,6 +11,7 @@ export const dynamic = 'force-dynamic';
 import { ClientFeed } from "@/components/ClientFeed";
 import { getTopHeadlines, searchEverything } from "@/lib/data";
 import { Article } from "@/types";
+import { Suspense } from "react";
 
 // Page properties that defines the search params received from the URL
 interface PageProps {
@@ -44,12 +45,15 @@ export default async function Home({ searchParams }: PageProps) {
 
     // 3. Pass the server-prepared data to a Client Component
     return (
-        <>
-            {/** The large search bar and categories */}
+        <Suspense fallback={
+            <div className="flex items-center justify-center min-h-[400px]">
+                <div className="text-gray-500">Loading news feed...</div>
+            </div>
+        }>
             <ClientFeed
                 articles={articles}
                 searchQuery={searchQuery}
             />
-        </>
+        </Suspense>
     );
 }

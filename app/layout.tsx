@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Merriweather } from 'next/font/google';
 import './globals.css'; // Your global styles (tailwind)
-import { Header } from '@/components/Header'; // Import the client component
+import { HeaderWrapper } from '@/components/HeaderWrapper';
 
 // Setup fonts
 const inter = Inter({
@@ -32,8 +32,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-white font-sans text-slate-900 pb-20">
         
         {/* Header is part of the layout, so it persists on all pages */}
-        <Header />
-
+        <HeaderWrapper />
         {/* 'children' will be the 'page.tsx' file */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
           {children}

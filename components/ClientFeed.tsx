@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { HeroArticle } from './HeroArticle';
 import { ArticleCard } from './ArticleCard';
 import { SinglePostView } from './SinglePostView';
-import { FeedControls } from './FeedControls'; // <-- Import FeedControls here
 import { Article } from '@/types';
+import { FeedControlsWrapper } from './FeedControlsWrapper';
 
 interface ClientFeedProps {
   articles: Article[];
@@ -42,7 +42,7 @@ export const ClientFeed: React.FC<ClientFeedProps> = ({ articles, searchQuery })
       {/* Only show FeedControls and the Home layout if view is 'home' */}
       {view === 'home' ? (
         <>
-          <FeedControls />
+          <FeedControlsWrapper />
           <div className="animate-in fade-in duration-500">
             {!searchQuery && breakingNews && (
               <HeroArticle article={breakingNews} onClick={handleArticleClick} />
