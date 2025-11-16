@@ -114,12 +114,16 @@ export async function getTopHeadlines(category: string = 'All'): Promise<Article
 
     try {
         const response = await fetch(url, {
-            // Use cache for 15 minutes to avoid hitting API rate limits
-            next: { revalidate: 900 },
+            headers: {
+                'Authorization': `Bearer ${API_KEY}`,
+            },
+            // Use cache for 5 minutes to avoid hitting API rate limits
+            next: { revalidate: 300 },
         });
 
         if (!response.ok) {
             throw new Error(`Failed to fetch news: ${response.status} ${response.statusText}`);
+            return [];
         }
 
         const data = await response.json() as NewsApiResponse;
@@ -131,8 +135,7 @@ export async function getTopHeadlines(category: string = 'All'): Promise<Article
             category: category === 'All' ? 'General' : category
         }));
     } catch (err) {
-        console.warn(`API Fetch Failed for getTopHeadlines (${(err as Error).message}). Switching to mock data.`);
-        
+        console.warn(`API Fetch Failed for getTopHeadlines (${(err as Error).message}). Switching to mock data.`);        
 
         if (USE_MOCK_DATA_ON_ERROR) {
             // Filter Mock data locally

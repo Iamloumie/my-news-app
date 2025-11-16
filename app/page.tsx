@@ -30,12 +30,16 @@ export default async function Home({ searchParams }: PageProps) {
     // 2. ---  THE FETCHING LOGIC ---
     // If there's a search query, use the search endpoint. 
     // Otherwise, use the top-headlines endpoint
-    if (searchQuery) {
-        // User is searching
-        articles = await searchEverything(searchQuery);
-    } else {
-        // User is browsing by category
-        articles = await getTopHeadlines(category)
+    try {
+        if (searchQuery) {
+            // User is searching
+            articles = await searchEverything(searchQuery);
+        } else {
+            // User is browsing by category
+            articles = await getTopHeadlines(category);
+        }
+    } catch (error) {
+        console.error("Error fetching articles:", error);
     }
 
     // 3. Pass the server-prepared data to a Client Component
