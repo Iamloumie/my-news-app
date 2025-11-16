@@ -1,6 +1,6 @@
 "use client"; // This component manages client-side view state
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { HeroArticle } from './HeroArticle';
 import { ArticleCard } from './ArticleCard';
 import { SinglePostView } from './SinglePostView';
@@ -42,7 +42,9 @@ export const ClientFeed: React.FC<ClientFeedProps> = ({ articles, searchQuery })
       {/* Only show FeedControls and the Home layout if view is 'home' */}
       {view === 'home' ? (
         <>
-          <FeedControls /> {/* <-- FeedControls is now here */}
+          <Suspense fallback={<div>Loading...</div>}>
+            <FeedControls />
+          </Suspense>
           <div className="animate-in fade-in duration-500">
             {!searchQuery && breakingNews && (
               <HeroArticle article={breakingNews} onClick={handleArticleClick} />
